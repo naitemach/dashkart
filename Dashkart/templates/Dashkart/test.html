@@ -1,0 +1,844 @@
+{% load static %}
+{% load pwa %}
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% progressive_web_app_meta %}
+
+    <title>Test</title>
+	<style>
+		.square{
+		width:80px;
+		height:80px;
+		border-width: thin;
+		border : 3px solid black;
+		background-color: white;
+		padding-top: 0px; 
+	}
+	.circ{
+		width:75px;
+		height:78px;
+		background-color: black;
+		border-radius: 50%;
+	}
+.circle {
+width:20px;
+height:20px;
+border-radius: 50%;
+color:#fff;
+background: red;
+}
+#mean{
+	text-align: center;
+}
+.tb{
+	display:inline-block;
+}
+.chart-container{
+	margin-top: 10%;
+	height:295px;
+	width:50%;
+}
+.btn{
+			border-radius:12px;
+	  		background-color:#3399ff;
+	  		color:white;
+	
+	}
+.heading{
+	font-size: 75px;
+	font-style: bold;
+	text-align: center;
+}
+div.left{
+	width:30%;
+	margin:0 15% 0 15%;
+	float:left;
+	font-size: 33px;
+}
+div.right{
+	width:30%;
+	margin:0 5% 5% 5%;
+	float: right;
+}
+.fnt{
+	font-size: 33px;
+}
+.mid{
+	width:100%;
+	margin:5% 5% 5% 5%;
+	float:left;
+}
+.rt{
+	text-align: center;
+}
+h3{
+	font-size: 30px;
+	text-align: center;
+}
+.lts{
+	//float: left;
+}
+.rts{
+	//float: right;
+}
+.slide{
+	//float:right;
+	//margin:0 82px 0 0;
+}
+input[type=range] {
+  -webkit-appearance: none;
+  margin: 18px 0;
+  width: 100%;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #1e90ff;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -14px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #1e90ff;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #1e90ff;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 348px;
+  height: 8.4px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #1e90ff;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]::-ms-fill-upper {
+  background: #1e90ff;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36vh;
+  width: 16vw;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #1e90ff;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #1e90ff;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #2c3e50;
+  background-image: none;
+  font : 16vw arial, sans-serif;
+}
+/* Custom Select */
+.select {
+  position: relative;
+  display: block;
+  width: 60em;
+  height: 8em;
+  line-height: 3;
+  background: #2c3e50;
+  overflow: hidden;
+  border-radius: .25em;
+}
+select {
+	width : 120 px;
+	height : 40 px;
+  margin: 0;
+  padding: 0 0 0 .5em;
+  color: #fff;
+  cursor: pointer;
+}
+select::-ms-expand {
+  display: none;
+}
+/* Arrow */
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 1em;
+  background: #34495e;
+  pointer-events: none;
+}
+/* Transition */
+.select:hover::after {
+  color: #f39c12;
+}
+.select::after {
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+}
+.bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      body {
+  min-height: 75rem;
+}
+      .navbar-header {
+        float: left;
+        margin: 0px;
+        text-align: center;
+        width: 100%;
+      }
+    .navbar-nav {
+    width: 100%;
+    text-align: center;
+  }
+.parent {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+ }
+ .slide {
+ flex: 0 0 100%; /* fg: 0, fs: 0, fb: 100% */
+ text-align: right;
+}
+#myrange, #hand{
+  width:90%; /* fg: 0, fs: 0, fb: 100% */
+
+}
+#tester{
+	flex:1;
+}
+</style>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+<body>
+
+<!-- <nav class="navbar navbar-expand-md navbar-dark fixed-top mb-4" style="background-color: #1e90ff">
+        <div class="navbar-header">
+          <h6 style="color:white;margin:0px; font-size: 22px;">D-BOX</h6>        
+        </div>
+</nav>
+ -->
+   <main role="main" class="container" style="padding-top: 10px;padding-bottom: 50px">
+
+ 
+ <!--<div class= "jumbotron">
+ 		<div class = "row">
+ 			<div class = "col">
+				<h5> Patient Name  </h5>
+			</div>
+			<div class = "col">
+				<h5> :  </h5>
+			</div>
+			<div class = "col">
+				<h5> Jake  </h5>
+			</div>
+		</div>
+		<div class = "row">
+ 			<div class = "col">
+				<h5> Age </h5>
+			</div>
+			<div class = "col">
+				<h5> :  </h5>
+			</div>
+			<div class = "col">
+				<h5> 20  </h5>
+			</div>
+		</div> 
+		<div class = "row">
+ 			<div class = "col">
+				<h5> Gender  </h5>
+			</div>
+			<div class = "col">
+				<h5> :  </h5>
+			</div>
+			<div class = "col">
+				<h5> Female  </h5>
+			</div>
+		</div>
+ </div> -->
+<div class="jumbotron pt-3 pb-3 mb-3" id="view3" style="background-color: #F0F8FF;">
+		<h5 class=""  style="text-align: center;">Recovery Graph</h5>
+
+
+<div class="paren mb-2">
+<div class="chart-container lts" style="width: 100%;height:40%;">
+	<canvas id="line-chart"></canvas>
+</div>
+
+<div  class="slide">		
+	<input type="range" min="1" class="slider1" max="3" id="hand"  value = 1>
+</div>
+</div>
+		     	<div class="row">
+        	<div class="col-md-4 order-md-2">
+          		<h5 class="d-flex justify-content-between align-items-center" style="padding-right: 10px;">
+            	<span class="text-muted" style="padding-left: 10px;">Choose the hand</span>
+            	<span class="badge badge-secondary badge-pill" id="silval2" >left</span>
+          		</h5>
+        	</div>
+        </div>
+
+                        <div class="row">
+        	<div class="col-md-4 order-md-2">
+          		<h5 class="d-flex justify-content-between align-items-center" style="padding-right: 10px;">
+            	<span class="text-muted" style="padding-left: 10px;">Reading type</span>
+            	<span class="badge badge-secondary badge-pill" >
+            	
+            		<div onchange="change_data()" class = "align-center">
+						<select name="slct" id="slct" style="font-size : 15px; background: none;">
+							<option selected="selected" value="F23">F23</option>
+							<option value ="F15">F15</option>
+							<option value="F4U">F4U</option>
+							<option value="F1U">F1U</option>
+						</select>
+						<i class='fas fa-sort-down'></i>
+					</div>
+
+            	</span>
+          		</h5>
+        	</div>
+        </div>
+
+</div>
+
+	<div class="jumbotron pt-3 pb-3 mb-3" id="view1" style="background-color: #F0F8FF;">
+        <h5 class="" style="text-align: center;">Trials</h5>
+
+        <div class="col-md-8 order-md-1">
+			<div class = "row">
+				<div class= "col-2 ">
+					<button id="t1" onclick="top1()" class="tb circle"></button> <br> <br>
+					<button id="t2" onclick="top2()" class="tb circle"></button><br><br>
+					<button id="t3" onclick="top3()" class="tb circle"></button><br> <br>
+				</div>
+				<div class = "col-4 ">
+					Trial1<br><br>
+					Trial2<br><br>
+					Trial3<br><br>
+				</div>
+				<div class = "col-2">
+					<span id="t11"></span><br><br>
+					<span id="t22"></span><br><br>
+					<span id="t33"></span><br><br>
+				</div>
+				<div class="col-4">
+					<div class="square">
+					<div class="circ" id="cir">
+					</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+				<h6 class="text-muted mb-3" id="mean"></h6>
+					    <div class="container" style="text-align: center;">
+
+<!--     <a class="btn btn-lg btn-primary" href="/docs/4.2/components/navbar/" style="display:inline-block;" role="button">Submit &raquo;</a> -->
+<button onclick="submit()"  class="btn btn-md btn-primary" style="background-color: #1e90ff;display:inline-block;" type="submit">Submit &raquo;</button>
+    </div>
+
+
+
+	</div>
+
+
+	<div class="jumbotron pt-3 pb-5" id="view2"  style="display: none; background-color: #F0F8FF;" >
+		<h4 class="text-muted" id="tnumber" style="text-align: center;">Trial Graph</h4>
+		     	<div class="row">
+        	<div class="col-md-4 order-md-2 mb-2">
+          		<h5 class="d-flex justify-content-between align-items-center" style="padding-right: 10px;">
+            	<span class="text-muted" style="padding-left: 10px;">Choose the trial value</span>
+            	<span class="badge badge-secondary badge-pill" id="slival" >0</span>
+          		</h5>
+        	</div>
+        </div>
+
+<div class="parent">
+	
+<div id="tester" class="rts" style="width:100%;height:40%;"><canvas id="line-chart1"></canvas>
+</div>
+		<div class="slide"id="trial_value">
+
+
+	<input type="range" min="1" max="100" class="slider1" id="myrange">
+</div></div>
+</div>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-bottom" style="background-color: #1e90ff">
+        <div class="d-flex justify-content-between align-items-center" style="width:100%;">
+        <div class="navbar-header" >
+        	<div class="d-flex justify-content-between align-items-center" style="width:100%;">
+        	<a href="{% url 'test' %}" style="color:white; padding-left: 30px;"><i class="fas fa-redo-alt"></i></a> 
+          <a href="{% url 'patient' %}"><p style="color:white;margin:0px; font-size: 18px; padding-right: 30px">Exit test  <i class='fas fa-sign-out-alt'></i></p></a> 
+          </div>       
+        </div>
+        
+        	
+          		<p class="d-flex align-items-center mb-0 pb-0" style="padding-right: 20px; text-align: center;">
+            	<span style="color:white; font-size: 12px;">powered by </span><span style="width: 10px;"></span>
+            	<span class="badge badge-secondary badge-pill" style="color:#1e90ff; background-color: white; padding-right: 4px;">Dbox </span>
+          		</p>
+         </div>
+</nav>
+</main>
+
+
+</body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+console.log({{pat.id}});
+console.log({{lhr | safe}});
+lhr = {{lhr | safe}};
+rhr = {{ rhr | safe}};
+pat_id = {{pat.id}};
+press = 0;
+sn= [];
+mp=[];
+mpr = [];
+dt = [];
+dtr= [];
+for(i = 0; i< lhr.length ; i++)
+{
+	mp.push(lhr[i].mean_pressure);
+	dt.push(lhr[i].time);
+}
+for(i = 0; i < rhr.length ; i++)
+{
+	mpr.push(rhr[i].mean_pressure);
+	dtr.push(rhr[i].time);
+}
+
+console.log(mp);
+var side1=document.getElementById("hand");
+trial1 = 0;
+trial2 = 0;
+trial3 = 0;
+var d=new Date();
+var df=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();
+for(i=0;i<100;i++)
+sn.push(i+1);
+grp(dt,mp);
+function top1(){
+	smp=[];
+	document.getElementById("trial_value").style.display="inline-block";
+	document.getElementById("t1").style.background="yellow";
+	for(i=0;i<100;i++){
+		$.ajax({
+			url : '/getPressure',
+			type : 'get',
+			dataType : 'json',
+			beforeSend : function(){
+
+			},
+			success : function(data){
+				smp.push(data.pressure);
+				press = data;
+				change(press);
+				var ctx = $("#line-chart1");
+				var lineChart = new Chart(ctx,{
+					type: 'line',
+					data : {
+						labels : sn,
+						datasets : [
+						{
+							label : "pressure",
+							data : smp
+						}]
+					}
+				}
+
+				);
+			}
+		});
+	}
+	document.getElementById("view2").style.display="inline-block";
+	document.getElementById("tnumber").innerHTML = "Trial 1 Graph";
+	var slider = document.getElementById("myrange");
+	var output=document.getElementById("t11");
+	var output2=document.getElementById("slival");
+	
+	slider.oninput=function(){
+		document.getElementById("t1").style.background="green";
+		output.innerHTML=" <b>"+smp[this.value-1]+"</b>";
+		output2.innerHTML=" <b>"+smp[this.value-1]+"</b>";
+		trial1=parseFloat(smp[this.value-1]);
+	}
+	var elmnt = document.getElementById("view2");
+	elmnt.scrollIntoView(false);
+}
+
+function top2(){
+	smp=[];
+	document.getElementById("trial_value").style.display="inline-block";
+	document.getElementById("t2").style.background="yellow";
+	for(i=0;i<100;i++){
+		$.ajax({
+			url : '/getPressure',
+			type : 'get',
+			dataType : 'json',
+			beforeSend : function(){
+
+			},
+			success : function(data){
+				smp.push(data.pressure);
+				press = data;
+				change(press);
+				var ctx = $("#line-chart1");
+				var lineChart = new Chart(ctx,{
+					type: 'line',
+					data : {
+						labels : sn,
+						datasets : [
+						{
+							label : "pressure",
+							data : smp
+						}]
+					}
+				}
+
+				);
+			}
+		});
+	}
+	document.getElementById("view2").style.display="inline-block";
+	document.getElementById("tnumber").innerHTML = "Trial 2 Graph";
+	var slider = document.getElementById("myrange");
+	var output=document.getElementById("t22");
+	var output2=document.getElementById("slival");
+	
+	slider.oninput=function(){
+		document.getElementById("t2").style.background="green";
+		output.innerHTML=" <b>"+smp[this.value-1]+"</b>";
+		output2.innerHTML=" <b>"+smp[this.value-1]+"</b>";
+		trial2=parseFloat(smp[this.value-1]);
+	}
+	var elmnt = document.getElementById("view2");
+	elmnt.scrollIntoView(false);
+
+}
+
+function top3(){
+	smp=[];
+	document.getElementById("trial_value").style.display="inline-block";
+	document.getElementById("t3").style.background="yellow";
+	for(i=0;i<100;i++){
+		$.ajax({
+			url : '/getPressure',
+			type : 'get',
+			dataType : 'json',
+			beforeSend : function(){
+
+			},
+			success : function(data){
+				smp.push(data.pressure);
+				press = data;
+				change(press);
+				var ctx = $("#line-chart1");
+				var lineChart = new Chart(ctx,{
+					type: 'line',
+					data : {
+						labels : sn,
+						datasets : [
+						{
+							label : "pressure",
+							data : smp
+						}]
+					}
+				}
+
+				);
+			}
+		});
+	}
+	document.getElementById("trial_value").style.display="inline-block";
+	document.getElementById("tnumber").innerHTML = "Trial 3 Graph";
+	var slider = document.getElementById("myrange");
+	var output=document.getElementById("t33");
+	var output2=document.getElementById("slival");
+	
+	slider.oninput=function(){
+		document.getElementById("t3").style.background="green";
+		output.innerHTML=" <b>"+smp[this.value-1]+"</b>";
+		output2.innerHTML=" <b>"+smp[this.value-1]+"</b>";
+		trial3=parseFloat(smp[this.value-1]);
+		mean=parseFloat((trial1+trial2+trial3)/3);
+		mean = Math.floor(mean * 100) / 100; 
+		document.getElementById("mean").innerHTML="<b>The mean pressure is "+mean+"</b>";
+
+	}
+	var elmnt = document.getElementById("view2");
+	elmnt.scrollIntoView(false);
+
+
+}
+
+function submit(){
+		var ty = document.getElementById("slct").value;
+		console.log("the trial1 value is "+trial1);
+		console.log("the trial2 value is "+trial2);
+		console.log("the trial3 value is "+trial3);
+		mean=parseFloat((trial1+trial2+trial3)/3);
+		mean = Math.floor(mean * 100) / 100; 
+		console.log("the mean is "+mean);
+		side=document.getElementById("hand").value;
+		if(side==2 && side!=1 && side!=3)
+			alert("Please select a side");
+			else
+			{
+				if (side==1)
+					side='left';
+				else
+					side='right';
+			console.log(side);
+			document.getElementById("mean").innerHTML="<b>The mean pressure is "+mean+"</b>";
+			var dtf={"id":pat_id,"mean":mean,"side":side,"type" : ty, 'time' : df};
+			console.log(dtf);
+			$.ajax({
+				url : '/storePressure',
+				data: dtf,
+				dataType: 'json',
+				success : function(data){
+					if(side=='left')
+					{
+
+						mp.push(mean);
+						dt.push(df);
+						grp(dt,mp);
+					}
+					else if(side=='right')
+					{
+						mpr.push(mean);
+						dtr.push(df);
+						grp(dtr,mpr);
+					}
+					console.log("In success");
+				}
+			});
+			}
+			var elmnt = document.getElementById("view3");
+			elmnt.scrollIntoView(false);
+}
+
+function change(press){
+	document.getElementById("cir").style["margin-top"]=(press.pressure/25)+"px";
+	document.getElementById("cir").style.height=""+(108-press.pressure/10)+"px";
+}
+
+function change_data()
+{
+	var slct = document.getElementById("slct").value;
+	var data = {'slct' : slct};
+	lhr = [];
+	rhr = [];
+	mp =[];
+	mpr =[];
+	dt = [];
+	dtr= [];
+	$.ajax({
+		url : '/changeReading',
+		data : data,
+		dataType : 'json',
+		success : function(data){
+			lhr = data['lhr'];
+			rhr = data['rhr'];
+			for(i = 0; i< lhr.length ; i++)
+			{
+				mp.push(lhr[i].mean_pressure);
+				dt.push(lhr[i].time);
+			}
+			for(i = 0; i < rhr.length ; i++)
+			{
+				mpr.push(rhr[i].mean_pressure);
+				dtr.push(rhr[i].time);
+			}
+
+		}
+	});
+/*	var side = document.getElementById("hand").value;
+	if(side.value == 1)
+	{
+		grp(dt,mp);
+	}
+	else if(side.value == 2)*/
+		
+}
+
+side1.oninput=function(){
+	console.log(this.value);
+	if(this.value==1)
+	{
+		grp(dt,mp);
+		var output3=document.getElementById("silval2");
+		output3.innerHTML=" left ";
+	}
+	else if(this.value==2)
+	{
+		var output3=document.getElementById("silval2");
+		output3.innerHTML=" both ";
+		if(mp.length>mpr.length)
+		{
+			var mp1 = [];
+			for(i=0;i<mpr.length;i++)
+			mp1.push(mp[i]);
+			BothGraph(mp1,mpr,dt);
+		}
+		else if(mp.length < mpr.length){
+			var mp2 = [];
+			for(i=0; i < mp.length ;i++)
+			mp2.push(mpr[i]);
+			BothGraph(mp,mp2,dt);
+		}
+		else
+		{
+			BothGraph(mp,mpr,dt);
+		}
+	}
+	else if(this.value==3)
+	{
+		var output3=document.getElementById("silval2");
+		output3.innerHTML=" right ";
+		grp1(dtr,mpr);
+	}
+}
+
+
+function grp(dt,mp){
+		var dataFirst={
+					label:"l-Pressure",
+					borderColor:"#800000",
+					pointBorderColor: "#800000",
+					pointBackgroundColor: "#800000",
+					pointHoverBackgroundColor: "#800000",
+					pointHoverBorderColor: "#800000",
+					data:mp
+				};
+	var ctx=$("#line-chart");
+	var lineChart=new Chart(ctx,{
+		type:'line',
+		data:{
+			labels: dt,
+			datasets:[dataFirst]
+		}
+	});
+}
+function grp1(sn,smp){
+	var dataSecond={
+					label:"R-Pressure",
+					borderColor:"#80b6f4",
+					pointBorderColor: "#80b6f4",
+					pointBackgroundColor: "#80b6f4",
+					pointHoverBackgroundColor: "#80b6f4",
+					pointHoverBorderColor: "#80b6f4",
+					data:smp
+				};
+	var ctx=$("#line-chart");
+	var lineChart = new Chart(ctx,{
+		type: 'line',
+		data :{
+			labels : sn,
+			datasets : [dataSecond]
+		}
+	});
+}
+
+function BothGraph(mp,mpr,dt){
+	var dataFirst={
+					label:"Left",
+					borderColor:"#800000",
+					pointBorderColor: "#800000",
+					pointBackgroundColor: "#800000",
+					pointHoverBackgroundColor: "#800000",
+					pointHoverBorderColor: "#800000",
+					data:mp
+				};
+	var dataSecond={
+					label:"Right",
+					borderColor:"#80b6f4",
+					pointBorderColor: "#80b6f4",
+					pointBackgroundColor: "#80b6f4",
+					pointHoverBackgroundColor: "#80b6f4",
+					pointHoverBorderColor: "#80b6f4",
+					data:mpr
+				};
+	var xdata={
+				labels:dt,
+				datasets:[dataFirst,dataSecond]
+				};
+	var ctx=$("#line-chart");
+	var lineChart=new Chart(ctx,{
+				type:'line',
+				data:xdata
+			});
+}
+
+
+
+</script>
+</html>

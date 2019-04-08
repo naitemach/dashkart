@@ -1,0 +1,451 @@
+{% load static %}
+{% load pwa %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="generator" content="Jekyll v3.8.5">
+    {% progressive_web_app_meta %}
+    <title>Dashboard</title>
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .navbar-header {
+        float: left;
+        margin: 0px;
+        text-align: center;
+        width: 100%;
+      }
+    .navbar-nav {
+    width: 100%;
+    text-align: center;
+  }
+ 
+    </style>
+  <style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style>
+
+
+<script>
+window.onload = function () {
+
+var dps = []; // dataPoints
+var chart = new CanvasJS.Chart("chartContainer", {
+
+  title :{
+    text: "export",
+    fontColor: "grey",
+    fontWeight: "normal",
+    horizontalAlign: "right",
+    padding: 2,
+  },
+  exportEnabled: true,
+  axisY: {
+    includeZero: false
+  },
+   axisX:{
+   valueFormatString: "hh:mm:ss",
+   labelAngle: -30
+ },       
+  data: [{
+    type: "line",
+    lineColor: "red",
+    dataPoints: dps
+  }]
+});
+
+var xVal = 0;
+var yVal = 85; 
+var updateInterval = 1000;
+var dataLength = 6; // number of dataPoints visible at any point
+
+var updateChart = function (count) {
+
+  count = count || 1;
+
+  for (var j = 0; j < count; j++) {
+    yVal = yVal +  Math.round(5 + Math.random() *(-5-5));
+    xVal = new Date();
+    
+    dps.push({
+      x: xVal,
+      y: yVal
+    });
+    //xVal++;
+  }
+
+  if (dps.length > dataLength) {
+    dps.shift();
+  }
+
+  chart.render();
+};
+
+updateChart(dataLength);
+setInterval(function(){updateChart()}, updateInterval);
+
+
+
+var dps1 = []; // dataPoints
+var chart1 = new CanvasJS.Chart("chartContainer1", {
+
+  title :{
+    text: "export",
+    fontColor: "grey",
+    fontWeight: "normal",
+    horizontalAlign: "right",
+    padding: 2,
+  },
+  exportEnabled: true,
+
+  axisY: {
+    includeZero: false
+  },
+ axisX:{
+   valueFormatString: "hh:mm:ss",
+   labelAngle: -30
+ },
+
+  data: [{
+    type: "line",
+    lineColor: "red",
+    dataPoints: dps1
+  }]
+});
+var yVal1 = 105; 
+
+var updateChart1 = function (count1) {
+
+  count1 = count1 || 1;
+
+  for (var j1 = 0; j1 < count1; j1++) {
+    yVal1 = yVal1 +  Math.round(5 + Math.random() *(-5-5));
+    xVal1 = new Date();
+    dps1.push({
+      x: xVal1,
+      y: yVal1
+    });
+    //xVal1++;
+  }
+
+  if (dps1.length > dataLength) {
+    dps1.shift();
+  }
+
+  chart1.render();
+};
+
+updateChart1(dataLength);
+setInterval(function(){updateChart1()}, updateInterval);
+
+
+
+var dps2 = []; // dataPoints
+var chart2 = new CanvasJS.Chart("chartContainer2", {
+
+  title :{
+    text: "export",
+    fontColor: "grey",
+    fontWeight: "normal",
+    horizontalAlign: "right",
+    padding: 2,
+  },
+  exportEnabled: true,
+
+  axisY: {
+    includeZero: false
+  },
+   axisX:{
+   valueFormatString: "hh:mm:ss",
+   labelAngle: -30
+ },      
+  data: [{
+    type: "line",
+    lineColor: "red",
+    dataPoints: dps2
+  }]
+});
+
+var yVal2 = 15; 
+
+var updateChart2 = function (count2) {
+
+  count2 = count2 || 1;
+
+  for (var j2 = 0; j2 < count2; j2++) {
+    yVal2 = yVal2 +  Math.round(2 + Math.random() *(-2-2));
+    xVal2 = new Date();
+    dps2.push({
+      x: xVal2,
+      y: yVal2
+    });
+    //xVal2++;
+  }
+
+  if (dps2.length > dataLength) {
+    dps2.shift();
+  }
+
+  chart2.render();
+};
+
+updateChart2(dataLength);
+setInterval(function(){updateChart2()}, updateInterval);
+
+
+
+var dps3 = []; // dataPoints
+var chart3 = new CanvasJS.Chart("chartContainer3", {
+
+  title :{
+    text: "export",
+    fontColor: "grey",
+    fontWeight: "normal",
+    horizontalAlign: "right",
+    padding: 2,
+  },
+  exportEnabled: true,
+
+  axisY: {
+    includeZero: false
+  },
+   axisX:{
+   valueFormatString: "hh:mm:ss",
+   labelAngle: -30
+ },      
+  data: [{
+    type: "line",
+    lineColor: "red",
+    dataPoints: dps3
+  }]
+});
+
+var yVal3 = 98.4; 
+
+var updateChart3 = function (count3) {
+
+  count3 = count3 || 1;
+
+  for (var j3 = 0; j3 < count3; j3++) {
+    yVal3 = yVal3 + 0.2 + Math.random() *(-0.2-0.2);
+    xVal3 = new Date();
+    dps3.push({
+      x: xVal3,
+      y: yVal3
+    });
+    //xVal2++;
+  }
+
+  if (dps3.length > dataLength) {
+    dps3.shift();
+  }
+
+  chart3.render();
+};
+
+updateChart3(dataLength);
+setInterval(function(){updateChart3()}, updateInterval);
+}
+</script>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top mb-3" style="background-color: #1e90ff">
+        <div class="navbar-header">
+          <h6 style="color:white;margin:0px; font-size: 22px;">DocApp</h6>        
+        </div>
+    </nav>
+
+<!--   <a class="navbar-brand" href="#">Top navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button> -->
+<!--   <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline mt-2 mt-md-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div> -->
+
+
+    <main role="main" class="container" style="padding-top: 70px;padding-bottom: 50px">
+ <p><span class="text-muted">you are here: </span><a href="{% url 'home' %}">Home </a>&raquo;<a href="{% url 'patient' %}"> Patient-{{ pat.first_name }} </a></p>
+      
+          <div class="jumbotron pt-3 pb-3 mb-3">
+        <!-- <h4 style="text-align: center;">Patient Info</h4> -->
+        <div class="row">
+        <div class="col-md-4 order-md-2 mb-1">
+          <h5 class="d-flex justify-content-between align-items-center mb-3" style="padding-right: 10px;">
+            <span class="text-muted" style="padding-left: 10px;">Patient ID</span>
+            <span class="badge badge-secondary badge-pill" >{{ pat.id }}</span>
+          </h5>
+        </div>
+        </div>
+        <div class="col-md-8 order-md-1">
+          <div class="row">
+            <div class="col-xs-6 ml-2">
+              <h6>First name :</h6>
+            </div>
+            <div class="col-xs-6 ml-2">
+              <p class="mb-0">{{ pat.first_name}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 ml-2">
+              <h6>Last name :</h6>
+            </div>
+            <div class="col-xs-6 ml-2">
+              <p class="mb-0">{{ pat.last_name }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 ml-2">
+              <h6>age :</h6>
+            </div>
+            <div class="col-xs-6 ml-2">
+              <p class="mb-0">{{ pat.age }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 ml-2">
+              <h6>Ph No. :</h6>
+            </div>
+            <div class="col-xs-6 ml-2">
+              <p class="mb-0">{{ pat.contact_no }}</p>
+            </div>
+          </div>
+          
+<!--     <div class="container" style="text-align: center;">
+    <a class="btn btn-md btn-primary" href="/docs/4.2/components/navbar/" style="display:inline-block;" role="button">Edit &raquo;</a>
+    </div> -->
+  </div>
+</div>
+
+
+
+
+ <!--      <div class="jumbotron mb-3" > -->
+       <!--  <h1 style="text-align: center;">Test</h1> -->
+        <!-- <div class="col-md-8 order-md-1">
+        <form class="needs-validation" novalidate>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label for="selTest">Select Test</label>
+            <select class="custom-select d-block w-100" id="state" required>
+              <option value="">Choose...</option>
+              <option>Test 1</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a test.
+            </div>
+          </div>
+        </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-6 ml-3">    <a class="btn btn-md btn-primary" href="/docs/4.2/components/navbar/" style="display:inline-block;" role="button">Test Now &raquo;</a></div>
+        <div class="col-xs-6 ml-3">    <a class="btn btn-md btn-primary" href="/docs/4.2/components/navbar/" style="display:inline-block;" role="button">Test History&raquo;</a></div>
+
+      </div>
+
+    </div>
+  </form>
+  </div>
+</div> -->
+
+
+<!-- <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div> -->
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h5">Heart Rate</h1>
+      </div>
+<div id="chartContainer" style="height: 250px; width: 100%;"></div>
+<!--       <canvas class="my-4 w-100 chartjs-render-monitor" id="hrChart" width="726" height="306" style="display: block; width: 363px; height: 153px;"></canvas> -->
+
+<!-- <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div> -->
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h5">Blood Pressure</h1>
+      </div>
+<div id="chartContainer1" style="height: 250px; width: 100%;"></div>
+
+ <!--      <canvas class="my-4 w-100 chartjs-render-monitor" id="bpChart" width="726" height="306" style="display: block; width: 363px; height: 153px;"></canvas> -->
+
+<!-- <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div> -->
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h5">Respiration</h1>
+      </div>
+<div id="chartContainer2" style="height: 250px; width: 100%;"></div>
+
+<!--       <canvas class="my-4 w-100 chartjs-render-monitor" id="rpChart" width="726" height="306" style="display: block; width: 363px; height: 153px;"></canvas>
+ -->
+<!-- <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div> -->
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h5">Temperature</h1>
+      </div>
+<div id="chartContainer3" style="height: 250px; width: 100%;"></div>
+
+<!--       <canvas class="my-4 w-100 chartjs-render-monitor" id="tpChart" width="726" height="306" style="display: block; width: 363px; height: 153px;"></canvas> -->
+</main>
+
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-bottom" style="padding:0px;">
+<div class="container" style="width:100%;height:5px; background-color: white;"></div>
+<div class="navbar-nav" style="background-color: #1e90ff; " >
+
+  <div class="text-center mb-2 mt-2" style="width:100%;">
+   
+  <div class="row"  style="display: inline-block; width:315px; padding:0px;">
+    <div class="col-sm" style="text-align: center; width:105px; height:27px;  display:inline;">
+      <a href="" style="color:white;   ">Settings</a>
+    </div>
+    <div class="col-sm" style="text-align: center; width:105px; height:27px;  display:inline;">
+       <a href="" style="color:white;    ">Support</a>
+    </div>
+    <div class="col-sm" style="text-align: center; width:105px; height:27px; display:inline;">
+       <a href="{% url 'login' %}" style="color:white;  ">Signout</a>
+    </div>
+  </div>
+
+</div>
+ <!--   <div class="text-muted text-center text-small"  >
+    <p class="mb-1" style="color:#ADD8E6;">&copy; 18-19 D-BOX, CSD, NITK Surathkal</p>
+  </div> -->
+</div>
+</nav>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
+<!-- 
+ <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> -->
+<script src="{% static 'jquery-3.3.1.slim.min.js' %}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- <script>window.jQuery || document.write('<script src="/docs/4.2/assets/js/vendor/jquery-slim.min.js"><\/script>')</script> -->
+<script src="{% static 'bootstrap.bundle.min.js' %}" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>
